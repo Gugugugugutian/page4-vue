@@ -3,17 +3,20 @@ export default {
     name: 'DayNight',
     data() {
         return {
-            dark: false
+            dark1: this.dark,
+        }
+    },
+    props: {
+        dark: {
+            type: Boolean,
+            default: false,
         }
     },
     emits: ['switch-dark'],
-    mounted() {
-        this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    },
     methods: {
         switchDark() {
-            this.dark = !this.dark;
-            this.$emit('switch-dark', this.dark);
+            this.dark1 = !this.dark1;
+            this.$emit('switch-dark', this.dark1);
         }
     }
 }
@@ -30,14 +33,14 @@ export default {
 
 <style>
 .day-s {
-    background-color: orange;
-    border: 2px solid black;
+    background-color: darkorange;
     left: -2px;
+    box-shadow: 1px 1px 1px #000, -1px -1px 1px #fff;
 }
 .night-s {
-    background-color: darkblue;
-    border: 2px solid white;
+    background-color: dodgerblue;
     left: 18px;
+    box-shadow: 1px 1px 1px #fff, -1px -1px 1px #000;
 }
 .day-night-switch {
     top: -3.5px;
@@ -50,6 +53,9 @@ export default {
 .day-b {
     border: 2px solid black;
     background-color: skyblue;
+    box-shadow:
+            inset -1px -1px 2px rgba(255, 255, 255, .9),
+            inset 1px 1px 2px rgba(0, 0, 0, .4);
 }
 .night-b {
     border: 2px solid white;

@@ -8,10 +8,17 @@ export default {
     data() {
         return {
             time: 'Time',
-            windowWidth: 0,
         }
     },
     props: {
+        dark: {
+            type: Boolean,
+            default: undefined,
+        },
+        windowWidth: {
+            type: Number,
+            default: 0,
+        },
         version: {
             type: String,
             default: 'Development Version 开发版本'
@@ -27,19 +34,11 @@ export default {
     }, 
     emits: ['change-dark'],
     methods: {
-        getWindowWidth() {
-            this.windowWidth = window.innerWidth;
-        },
         changeDark() {
             this.$emit('change-dark');
         }
     },
     mounted() {
-        // 获取窗口宽度
-        this.getWindowWidth();
-        window.addEventListener('resize', () => {
-            this.getWindowWidth();
-        });
         // 时间的显示
         this.time = new Date().toLocaleString();
         console.log("[Page4] Site loaded at: ", this.time);
@@ -52,14 +51,14 @@ export default {
 
 <template>
     <div class="top">
-        <DayNight @switch-dark="changeDark" />
+        <DayNight :dark="dark" @switch-dark="changeDark" />
 
         <div class="top1">
             <div class="title" v-show="this.windowWidth>260">
                 <h1>{{title}}</h1>
             </div>
 
-            <div class="info" v-show="this.windowWidth>560">
+            <div class="info" v-show="this.windowWidth>576">
                 {{ time }}<br/> {{ version }}
             </div>
         </div>
