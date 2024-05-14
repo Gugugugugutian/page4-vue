@@ -22,7 +22,7 @@ export default {
 <template>
     <div class="circlel">
         <div class="circle-l-content" :style="maxw">
-            <h1>小工具</h1>
+            <h1>还没写</h1>
         </div>
     </div>
 </template>
@@ -38,10 +38,11 @@ export default {
     width: 800px;
     height: 800px;
     border-radius: 50%;
-    background-color: #d05e5e;
+    background-color: skyblue;
+    transition: background 1s ease-in-out;
     opacity: 0.7;
 }
-.circlel:hover {
-    opacity: 0.9;
+.dark .circlel {
+    background-color: royalblue;
 }
 </style>

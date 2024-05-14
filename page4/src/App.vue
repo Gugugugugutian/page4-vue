@@ -20,6 +20,7 @@ export default {
     return {
       dark: false,
       windowWidth: 0,
+      WindowHeight: 0,
       ipData: {
         ipv4: 'fetching...',
         country_name: 'unknown',
@@ -36,9 +37,12 @@ export default {
     getWindowWidth() {
       this.windowWidth = window.innerWidth;
     },
+    getWindowHeight() {
+      this.WindowHeight = window.innerHeight;
+    },
     calc1() {
       // 数学计算式，右侧最大的圆占用的高度
-      return Math.sqrt(788896 - Math.pow(this.windowWidth - 700, 2)) - 100 + Math.max(0, (800 * 650 / this.windowWidth) - 650);
+      return Math.sqrt(Math.pow(865, 2) - Math.pow(this.windowWidth - 700, 2)) - 100 + Math.max(0, (800 * 650 / this.windowWidth) - 650);
     },
     async fetchIPData() {
       try {
@@ -59,8 +63,10 @@ export default {
   },
   mounted() {
     // 动态获取窗口宽度
+    this.getWindowHeight();
     this.getWindowWidth();
     window.addEventListener('resize', () => {
+      this.getWindowHeight();
       this.getWindowWidth();
     });
     // 根据时间判断是否进入夜间模式
@@ -82,7 +88,7 @@ export default {
     },
     mainMinHeight() {
       const r = this.calc1();
-      return 'min-height: ' + (Math.max(r, 100) + 830) + 'px';
+      return 'min-height: ' + (Math.max(r, 0) + this.WindowHeight + 100) + 'px';
     },
   }
 }
@@ -90,12 +96,12 @@ export default {
 
 <template>
   <Top :class="{ 'dark-only-font': dark }" :windowWidth="windowWidth" :dark="dark" class="main-top"
-    @change-dark="switchDark"></Top>
+    @change-dark="switchDark" style="z-index: 9100;"></Top>
   <div class="main" :class="{ dark: dark }" :style="mainMinHeight">
     <LeftCircle class="circle1" :style="circleLeftTop" :windowWidth="windowWidth" />
     <RightCircle class="circle2" :windowWidth="windowWidth" />
   </div>
-  <Bottom :class="{ 'dark-only-font': dark }" :ipInfo="ipData"></Bottom>
+  <Bottom :ipInfo="ipData"></Bottom>
 </template>
 
 <style scoped>
@@ -113,6 +119,11 @@ export default {
 }
 
 .main {
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 100vi;
+  height: max-content;
   transition: color 1s ease-in-out, background 1s ease-in-out;
 }
 
@@ -129,5 +140,17 @@ export default {
 .dark {
   background-color: #333;
   color: #fff;
+}
+
+.circlel:hover, .circler:hover {
+  opacity: 0.9;
+}
+
+.dark .circlel:hover, .dark .circler:hover {
+  z-index: 9000;
+}
+
+a {
+  transition: background 0.2s;
 }
 </style>

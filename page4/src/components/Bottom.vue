@@ -29,6 +29,7 @@ export default {
     height: 30px;
     padding: 0 20px;
 
+    color: white;
     background-color: rgba(0, 0, 0, 0.5);
 
     display: flex;
