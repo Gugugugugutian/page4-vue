@@ -5,38 +5,20 @@ export default {
     data() {
         return {
             index: 0,
-            linkPages: [
-                [
-                    {u: "https://chat.openai.com/chat", n: "ChatGPT",}, 
-                    {u: "https://github.com/", n: "Github",},
-                    {u: "https://singlelogin.se/", n: "ZLibrary",},
-                    {n: 'GMail', u: 'https://mail.google.com/'},
-                    {n: 'QQMail', u: 'https://mail.qq.com/'},
-                    {n: '菜鸟教程', u: 'https://www.runoob.com/'},
-                    {n: "WHU图书馆", u: "https://www.lib.whu.edu.cn/",}, 
-                    {n: 'WHU信息门户', u: 'https://ehall.whu.edu.cn/new/index.html#/'},
-                    {n: 'Leetcode', u: 'https://leetcode.cn/problemset/all/'},
-                    {n: 'iiiLab', u: 'https://bili.iiilab.com/'},
-                    {n: "高德地图",u: 'https://ditu.amap.com/', },
-                    {n: "Bilibili",u: 'https://www.bilibili.com/', },
-                    {n: "雀魂麻将",u: 'https://game.maj-soul.net/1/', },
-                    {n: "Steam历史价格",u: 'https://steamdb.info/', },
-                    {n: "科学上网",u: 'https://ikuuu.org/', },
-                ],[
-                    {n: "value2",u: 'undefined', },
-                ],
-            ], 
-            linkTitles: [
-                '常用', 
-                '校园', 
-                '文档',
-            ]
         }
     },
     components: {
         Links,
     },
     props: {
+        linkPages: {
+            type: Array,
+            default: [],
+        }, 
+        linkTitles: {
+            type: Array,
+            default: [],
+        },
         windowWidth: {
             default: 0,
             type: Number,
@@ -63,19 +45,21 @@ export default {
         linkh1() {
             if(this.linkPages.length > this.index) return this.linkTitles[this.index]; 
             else return 'Overflow';
-        }
-    }
+        },
+        curLinks() {
+            if(this.linkPages.length > this.index) return this.linkPages[this.index]; 
+            else return [[{n: 'OVERFLOW', u: undefined}]];
+        },
+    },
 }
 </script>
 <template>
     <div class="circler" :style="circleh">
         <div class="circle-r-content" :style="maxw">
             <h1 class="rc-head">
-                <span @click="indexMinus"><-</span> {{linkh1}} <span @click="indexAdd">-></span>
+            <span @click="indexMinus"><-</span> {{linkh1}} <span @click="indexAdd">-></span>
             </h1>
-            <hr style="margin-bottom: 5px; width: 550px;"/>
-            <Links :links="linkPages" :index="index"></Links>
-            <p>这里可以再加一个条件过滤器</p>
+            <Links :links="curLinks"></Links>
         </div>
     </div>
 </template>
@@ -84,10 +68,11 @@ export default {
     margin-top: 290px;
     margin-left: 100px;
     max-width: 600px;
+    padding-bottom: 100px;
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    align-items: start;
 }
 .circler {
     width: 1000px;
@@ -103,9 +88,9 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 300px;
-    /* margin: 0 auto; */
     margin-left: 15px;
     padding-bottom: 7px;
+    border-bottom: 2px solid;
 }
 .rc-head span:hover {
     background-color: rgba(0, 0, 0, 0.1);

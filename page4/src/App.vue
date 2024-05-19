@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import Top from '@/components/Top.vue'
 import LeftCircle from '@/components/LeftCircle.vue'
 import RightCircle from '@/components/RightCircle.vue'
+import GlobalSearch from '@/components/GlobalSearch.vue'
 import Bottom from '@/components/Bottom.vue'
 </script>
 
@@ -15,6 +16,8 @@ export default {
     Top,
     LeftCircle,
     RightCircle,
+    GlobalSearch,
+    Bottom,
   },
   data() {
     return {
@@ -26,6 +29,33 @@ export default {
         country_name: 'unknown',
         city: 'unknown',
       },
+      linkPages: [
+                [
+                    {u: "https://chat.openai.com/chat", n: "ChatGPT", }, 
+                    {u: "https://github.com/", n: "Github",},
+                    {u: "https://singlelogin.se/", n: "ZLibrary",},
+                    {n: 'GMail', u: 'https://mail.google.com/'},
+                    {n: 'QQMail', u: 'https://mail.qq.com/'},
+                    // 给中文网站创建en字段，方便拼音或英文替代搜索
+                    {n: '菜鸟教程', u: 'https://www.runoob.com/', en:"runoobcainiaojiaocheng", },
+                    {n: "WHU图书馆", u: "https://www.lib.whu.edu.cn/", en:"whulibrarywhutushuguan",}, 
+                    {n: 'WHU信息门户', u: 'https://ehall.whu.edu.cn/new/index.html#/', en:"whuxinximenhu",},
+                    {n: 'Leetcode', u: 'https://leetcode.cn/problemset/all/'},
+                    {n: 'iiiLab', u: 'https://bili.iiilab.com/'},
+                    {n: "高德地图", u: 'https://ditu.amap.com/', en:"gaodedituimap",},
+                    {n: "Bilibili", u: 'https://www.bilibili.com/', },
+                    {n: "雀魂麻将", u: 'https://game.maj-soul.net/1/', en:"quehunmajiangmajsoul",},
+                    {n: "Steam历史价格", u: 'https://steamdb.info/', en:"steamlishijiage",},
+                    {n: "科学上网", u: 'https://ikuuu.org/', en:"ikuuukexueshangwang",},
+                ],[
+                    {n: "value2",u: 'undefined', },
+                ],
+            ], 
+            linkTitles: [
+                '常用', 
+                '校园', 
+                '文档',
+            ],
     }
   },
   props: {
@@ -99,7 +129,8 @@ export default {
     @change-dark="switchDark" style="z-index: 9100;"></Top>
   <div class="main" :class="{ dark: dark }" :style="mainMinHeight">
     <LeftCircle class="circle1" :style="circleLeftTop" :windowWidth="windowWidth" />
-    <RightCircle class="circle2" :windowWidth="windowWidth" />
+    <RightCircle class="circle2" :windowWidth="windowWidth" :linkPages="linkPages" :linkTitles="linkTitles" />
+    <GlobalSearch :windowWidth="windowWidth" :insitePages="linkPages" />
   </div>
   <Bottom :ipInfo="ipData"></Bottom>
 </template>

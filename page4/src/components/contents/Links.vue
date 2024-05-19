@@ -2,29 +2,15 @@
 export default {
     name: 'Links',  
     props: {
-        index: {
-            default: 0,
-            type: Number,
-        },
-        windowWidth: {
-            default: 0,
-            type: Number,
-        },
         links: {
             type: Array,
-            default: [
+            default: //[
                 [
                     // 请不要修改这里的链接，否则会影响该元素的复用
                     {n: 'undefined', u: undefined},
                     {n: 'undefined', u: undefined},
                 ], 
-            ]
-        },
-    },
-    computed: {
-        curLinks() {
-            if(this.links.length > this.index) return this.links[this.index]; 
-            else return [[{n: 'OVERFLOW', u: undefined}]];
+            //]
         },
     },
 }
@@ -32,17 +18,19 @@ export default {
 
 <template>
     <div class="links">
-        <a class="link" v-for="(link, index) in curLinks" :key="index" :href="link.u">{{link.n}}</a>
+        <a class="link" v-for="(link, index) in links" :key="index" :href="link.u">{{link.n}}</a>
     </div>
 </template>
 
 <style>
 .links {
+    max-height: 100%;
     text-align: center;
     line-height: 48px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
     margin: 0 0 15px 0;
 }
 .link {
@@ -51,7 +39,6 @@ export default {
     display: block;
     overflow: hidden;
     font-size: 20px;
-    /* border: 1px solid; */
     border-radius: 5px;
     word-break: keep-all;
     text-decoration: none;
