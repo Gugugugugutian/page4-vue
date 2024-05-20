@@ -79,7 +79,7 @@ export default {
 </script>
 <template>
     <div class="search-icon" :class="{ dark: dark }" @click="reverseShow" :style="searchIconRowPosition">
-        <div v-show="showSearchWidget">Close</div>
+        <div v-show="showSearchWidget">关闭</div>
         <div v-show="!showSearchWidget">搜索</div>
     </div>
     <div class="search-container" :class="{ dark1: dark }" :style="searchContainerShow">
@@ -94,6 +94,7 @@ export default {
 <style>
 .button-container button:hover {
     color: wheat;
+    background-color: rgba(50, 50, 50, 0.55);
 }
 .button-container button {
     display: block;
@@ -101,7 +102,7 @@ export default {
     height: 50px;
     border: 0;
     color: whitesmoke;
-    background-color: rgba(50, 50, 50, 0.55);
+    background-color: transparent;
     border-radius: 10px;
     font-size: 24px;
     padding: 15px 0px;
@@ -165,5 +166,8 @@ export default {
     background-color: green;
     color: whitesmoke;
     border: 0;
+}
+.search-icon:hover {
+    opacity: 1;
 }
 </style>
