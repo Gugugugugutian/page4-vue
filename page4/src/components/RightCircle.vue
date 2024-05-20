@@ -35,8 +35,9 @@ export default {
     computed: {
         maxw() {
             // 保证内容左右不越界
+            return 'padding-left: ' + (Math.max(0, 800-this.windowWidth)+15) + 'px; height: ' 
             // 保证内容显示区域大小不变
-            return 'padding-left: ' + (Math.max(0, 800-this.windowWidth)+15) + 'px; height: ' + Math.max(550, (800*550/this.windowWidth)) + 'px;';
+                                    + Math.max(550, (800*550/this.windowWidth)) + 'px;';
         },
         circleh() {
             // 保证圆的高度可以容纳内容区域

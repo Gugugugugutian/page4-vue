@@ -21,7 +21,7 @@ export default {
         },
         version: {
             type: String,
-            default: 'Development Version 开发版本'
+            default: 'Gitpage 测试版本'
         },
         title: {
             type: String,

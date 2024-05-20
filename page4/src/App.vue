@@ -202,17 +202,17 @@ export default {
 </script>
 
 <template>
-  <Top :class="{ 'dark-only-font': dark }" :windowWidth="windowWidth" :dark="dark" class="main-top"
-    @change-dark="switchDark" style="z-index: 9100;"></Top>
   <div class="main" :class="{ dark: dark }" :style="mainMinHeight">
+    <Top :class="{ 'dark-only-font': dark }" :windowWidth="windowWidth" :dark="dark" class="main-top"
+    @change-dark="switchDark" style="z-index: 9100;"></Top>
     <LeftCircle class="circle1" :style="circleLeftTop" :windowWidth="windowWidth" />
     <RightCircle class="circle2" :windowWidth="windowWidth" :linkPages="linkPages" :linkTitles="linkTitles" />
-    <GlobalSearch :windowWidth="windowWidth" :insitePages="linkPages" />
+    <GlobalSearch :dark="dark" :windowWidth="windowWidth" :insitePages="linkPages" />
+    <Bottom :ipInfo="ipData"></Bottom>
   </div>
-  <Bottom :ipInfo="ipData"></Bottom>
 </template>
 
-<style scoped>
+<style>
 .circle1 {
   z-index: 200;
   position: absolute;

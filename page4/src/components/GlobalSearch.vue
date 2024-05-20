@@ -15,7 +15,7 @@ export default {
         }, 
         dark: {
             type: Boolean,
-            default: true,
+            default: false,
         }
     },
     data() {
@@ -23,21 +23,34 @@ export default {
             showSearchWidget: false,
             showInsiteSearchResultPage: false,
             searchText: '',
+            placeHolderText: 'Google搜索',
             engine: 'Google',
         }
     },
     methods: {
         switchEngine() {
             if(this.engine == 'Google') {
+                this.place('Bing搜索');
                 this.engine = 'Bing';
             } else if(this.engine == 'Bing') {
+                this.place('站内搜索');
                 this.engine = 'In-Site';
             } else {
+                this.place('Google搜索');
                 this.engine = 'Google';
             }
         },
+        place(text, time=-1) {
+            if(time>0) {
+                const temp = this.placeHolderText;
+                setTimeout(()=>{
+                    this.placeHolderText = temp;
+                }, time);
+            }
+            this.placeHolderText = text;
+        },
         search() {
-            if(this.searchText.length > 0) {
+            if(this.searchText.length >= 0) {
                 if(this.engine == 'Google') {
                     window.open('https://www.google.com/search?q=' + this.searchText);
                 } else if (this.engine == 'Bing') {
@@ -45,6 +58,8 @@ export default {
                 } else {
                     this.showInsiteSearchResultPage = true;
                 }
+            } else {
+                this.place('必须填写搜索内容', 2000);
             }
         }, 
         reverseShow() {
@@ -83,7 +98,7 @@ export default {
         <div v-show="!showSearchWidget">搜索</div>
     </div>
     <div class="search-container" :class="{ dark1: dark }" :style="searchContainerShow">
-        <input class="search-input" type="text" v-model="searchText" @keyup.enter="search">
+        <input class="search-input" type="text" v-model="searchText" @keyup.enter="search" :placeholder="placeHolderText">
         <div class="button-container">
             <button class="search-button" @click="switchEngine">Switch</button>
             <button class="search-button" @click="search">{{ engine }}</button>
@@ -124,8 +139,7 @@ export default {
     border: solid 2px whitesmoke;
     background-color: rgba(0, 0, 0, 0.35);
     border-radius: 10px;
-    transition: background 1s ease-in-out,
-                color 1s ease-in-out;
+    transition: all 1s ease-in-out;
     padding: 0 15px;
 }
 .search-container input:focus {
@@ -153,6 +167,7 @@ export default {
     z-index: 99999;
     background-color: yellowgreen;
     color: black;
+    border: 2px solid black;
     opacity: 0.85;
     height: 80px;
     width: 80px;
@@ -161,11 +176,12 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 20px;
+    transition: all 1s ease-in-out;
 }
 .dark .search-icon {
     background-color: green;
     color: whitesmoke;
-    border: 0;
+    border: 2px solid whitesmoke;
 }
 .search-icon:hover {
     opacity: 1;
