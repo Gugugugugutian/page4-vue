@@ -163,7 +163,7 @@ export default {
 }
 .search-icon {
     position: fixed;
-    top: 130px;
+    top: 60px;
     z-index: 99999;
     background-color: yellowgreen;
     color: black;

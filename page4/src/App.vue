@@ -5,6 +5,7 @@ import LeftCircle from '@/components/LeftCircle.vue'
 import RightCircle from '@/components/RightCircle.vue'
 import GlobalSearch from '@/components/GlobalSearch.vue'
 import Bottom from '@/components/Bottom.vue'
+import PageEnd from '@/components/contents/PageEnd.vue'
 </script>
 
 <script>
@@ -18,6 +19,7 @@ export default {
     RightCircle,
     GlobalSearch,
     Bottom,
+    PageEnd,
   },
   data() {
     return {
@@ -197,69 +199,80 @@ export default {
       const r = this.calc1();
       return 'min-height: ' + (Math.max(r, 0) + this.WindowHeight + 100) + 'px';
     },
+    mainContentStart() {
+      const r = this.calc1();
+      return 'top: ' + (Math.max(r, 0) + this.WindowHeight + 100) + 'px';
+    },
   }
 }
 </script>
 
 <template>
   <div class="main" :class="{ dark: dark }" :style="mainMinHeight">
-    <Top :class="{ 'dark-only-font': dark }" :windowWidth="windowWidth" :dark="dark" class="main-top"
-    @change-dark="switchDark" style="z-index: 9100;"></Top>
+    <Top :windowWidth="windowWidth" :dark="dark" class="main-top"
+      @change-dark="switchDark" style="z-index: 9100;"></Top>
     <LeftCircle class="circle1" :style="circleLeftTop" :windowWidth="windowWidth" />
     <RightCircle class="circle2" :windowWidth="windowWidth" :linkPages="linkPages" :linkTitles="linkTitles" />
     <GlobalSearch :dark="dark" :windowWidth="windowWidth" :insitePages="linkPages" />
+    <div class="main-content" :style="mainContentStart">
+      <PageEnd></PageEnd>
+    </div>
     <Bottom :ipInfo="ipData"></Bottom>
   </div>
 </template>
 
 <style>
+.dark .main-content {
+  background-color: #333
+}
+.main-content {
+  position: relative;
+  width: 100vi;
+  padding: 10px;
+  transition: background 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
+}
 .circle1 {
   z-index: 200;
   position: absolute;
   left: -100px;
 }
-
 .circle2 {
   top: -200px;
   z-index: 100;
   position: absolute;
   right: -100px;
 }
-
 .main {
   position: absolute;
   left: 0;
   top: 0;
   min-width: 100vi;
-  height: max-content;
   transition: color 1s ease-in-out, background 1s ease-in-out;
 }
-
 .main-top {
   z-index: 999;
   position: fixed;
-  transition: color 1s ease-in-out;
 }
-
 .dark-only-font {
   color: #fff;
 }
-
 .dark {
   background-color: #333;
   color: #fff;
 }
-
 .circlel:hover,
 .circler:hover {
   opacity: 0.9;
 }
-
 .dark .circlel:hover,
 .dark .circler:hover {
   z-index: 9000;
 }
-
 a {
   transition: background 0.2s;
 }
