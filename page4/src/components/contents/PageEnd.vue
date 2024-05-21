@@ -16,8 +16,8 @@ export default {
             ],
             links: [
                 [
-                    {name: 'Via Gmail', url: '@mailto:gutian2002@gmail.com'},
-                    {name: 'Via WHUmail', url: '@mailto:gugugugugutian@whu.edu.cn'},
+                    {name: 'Via Gmail', url: 'mailto:gutian2002@gmail.com'},
+                    {name: 'Via WHUmail', url: 'mailto:gugugugugutian@whu.edu.cn'},
                 ], [
                     {name: 'GitHub', url: 'https://github.com/gugugugugutian'},
                 ], [
@@ -29,20 +29,21 @@ export default {
     },
     components: {
         EndLinks,
-    }
+    },
 }
 </script>
 
 <template>
     <div class="page-end">
-        <div style="width: 80vi; border-bottom: 1px solid; text-align: center; margin-bottom: 10px;"></div>
+        <div style="width: 80vi; border-bottom: 1px solid; margin-bottom: 10px;"></div>
         <div class="page-end2">
-            <div class="page-end1">
+            <div class="page-end1" style="flex: 1;">
                 <EndLinks v-for="(link, index) in links" :key="index" :links="link" :linkTitle="linkTitles[index]"></EndLinks>
             </div>
-            <div class="page-end3">
+            <div class="page-end3" style="flex: 1;">
                 <h1> Gugugugugutian.github.io </h1>
                 <p> 感谢您访问本站 </p>
+                <p> {{ dictum }} </p>
             </div>
         </div>
     </div>
@@ -52,18 +53,21 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .page-end1 {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .page-end3 {
     display: flex;
     flex-direction: column;
     align-items: end;
+    width: max-content;
 }
 .page-end {
-    padding: 2vi 2vh;
+    max-width: 80vi;
+    overflow-x: hidden;
 }
 </style>

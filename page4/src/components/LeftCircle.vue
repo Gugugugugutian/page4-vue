@@ -22,7 +22,7 @@ export default {
 <template>
     <div class="circlel">
         <div class="circle-l-content" :style="maxw">
-            <h1>敬请期待</h1>
+            <h1>^_^</h1>
         </div>
     </div>
 </template>

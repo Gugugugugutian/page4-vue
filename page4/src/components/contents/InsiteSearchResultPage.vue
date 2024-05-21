@@ -55,7 +55,7 @@ export default {
 }
 </script>
 <template>
-    <div class="insite-result-page" v-show="searchShow">
+    <div class="insite-result-page" v-if="searchShow">
         <button id="btnisp1" @click="hideResultPage">&times;</button>
         <p>{{ searchText }} 的站内搜索结果：共{{ this.result.length }}条</p>
         <div class="insite-results">
